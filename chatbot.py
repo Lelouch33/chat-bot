@@ -92,8 +92,6 @@ def main():
     """
     Основная точка входа в программу.
     """
-    print("Title: GaiaAI Chatbot")
-    print("Twitter: https://x.com/0xMoei")
     api_key = input("Enter your API key: ")
     questions = load_questions()
     run_bot(api_key, questions)
