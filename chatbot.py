@@ -35,7 +35,7 @@ def load_questions(file_path="questions.json"):
         logging.error(f"Error decoding JSON from {file_path}.")
         raise
 
-def chat_with_ai(api_key: str, question: str):
+def chat_with_ai(api_key: str, question: str) -> str:
     """
     Отправка вопроса в API и получение ответа.
     """
@@ -93,9 +93,8 @@ def main():
     Основная точка входа в программу.
     """
     api_key = input("Enter your API key: ")
-    questions = load_questions()
+    questions = load_questions()  # Путь по умолчанию - questions.json
     run_bot(api_key, questions)
 
 if __name__ == "__main__":
     main()
-    
