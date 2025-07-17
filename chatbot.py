@@ -62,31 +62,33 @@ def chat_with_ai(api_key: str, question: str) -> str:
 def run_bot(api_key: str, questions):
     """
     Основной процесс для запуска бота, включая обработку вопросов.
+    Теперь включает внешний цикл для повторной обработки вопросов.
     """
-    random.shuffle(questions)
-    logging.info(f"Starting chatbot with {len(questions)} questions in random order")
+    while True:  # Outer loop to repeat the questions indefinitely
+        random.shuffle(questions)  # Перемешивание вопросов перед каждым циклом
+        logging.info(f"Starting chatbot with {len(questions)} questions in random order")
 
-    for i, question in enumerate(questions, 1):
-        logging.info(f"\nProcessing question {i}/{len(questions)}")
-        logging.info(f"Question: {question}")
+        for i, question in enumerate(questions, 1):
+            logging.info(f"\nProcessing question {i}/{len(questions)}")
+            logging.info(f"Question: {question}")
 
-        start_time = time.time()
-        try:
-            response = chat_with_ai(api_key, question)
-            elapsed = time.time() - start_time
+            start_time = time.time()
+            try:
+                response = chat_with_ai(api_key, question)
+                elapsed = time.time() - start_time
 
-            # Печать полного ответа
-            print(f"Answer to '{question[:50]}...':\n{response}")
+                # Печать полного ответа
+                print(f"Answer to '{question[:50]}...':\n{response}")
 
-            logging.info(f"Received full response in {elapsed:.2f}s")
-            logging.info(f"Response length: {len(response)} characters")
+                logging.info(f"Received full response in {elapsed:.2f}s")
+                logging.info(f"Response length: {len(response)} characters")
 
-            # Пауза перед следующим вопросом
-            time.sleep(QUESTION_DELAY)
+                # Пауза перед следующим вопросом
+                time.sleep(QUESTION_DELAY)
 
-        except Exception as e:
-            logging.error(f"Failed to process question: {str(e)}")
-            continue
+            except Exception as e:
+                logging.error(f"Failed to process question: {str(e)}")
+                continue
 
 def main():
     """
